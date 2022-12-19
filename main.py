@@ -1,12 +1,17 @@
+import os
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 from datetime import datetime, timedelta
 
-from models import User, db_handle
+import telebot
+
 import settings
 from bot.commands import Command
 from bot.keyboards import Keyboard
 
-
-bot = PowerOFF_bot.TeleBot(settings.TOKEN)
+bot = telebot.TeleBot(settings.TOKEN)
 
 
 @bot.message_handler(content_types=["text"])

@@ -1,6 +1,5 @@
+from telebot import types
 from datetime import datetime
-
-from telegram_bot import types
 
 
 class Keyboard:
