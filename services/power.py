@@ -157,7 +157,7 @@ class PowerOFF:
                 PowerOFF.PowerAvailability.ON.value: '🟢',
                 PowerOFF.PowerAvailability.OFF.value: '🔴',
                 PowerOFF.PowerAvailability.MAYBE_OFF.value: '⚪',
-                'ЗАРАЗ': '➡️',
+                'ЗАРАЗ': '  ➡️',
             }
             icon = icons.get(status_value)
             row = f'{icon} {time_value} - {status_value}'
