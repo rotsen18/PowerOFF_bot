@@ -15,34 +15,34 @@ class PowerOFF:
             (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.ON
         },
         1: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.OFF,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.OFF,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.ON,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.MAYBE_OFF
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.MAYBE_OFF
         },
         2: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.ON,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.ON,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.MAYBE_OFF,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.OFF
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.OFF
         },
         3: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.MAYBE_OFF,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.MAYBE_OFF,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.OFF,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.ON
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.ON
         },
         4: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.OFF,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.OFF,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.ON,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.MAYBE_OFF
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.MAYBE_OFF
         },
         5: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.ON,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.ON,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.MAYBE_OFF,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.OFF
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.OFF
         },
         6: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.MAYBE_OFF,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.MAYBE_OFF,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.OFF,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.ON
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.ON
         },
     }
     SCHEDULE_GROUP_2 = {
@@ -52,34 +52,34 @@ class PowerOFF:
             (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.MAYBE_OFF
         },
         1: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.ON,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.ON,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.MAYBE_OFF,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.OFF
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.OFF
         },
         2: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.MAYBE_OFF,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.MAYBE_OFF,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.OFF,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.ON
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.ON
         },
         3: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.OFF,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.OFF,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.ON,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.MAYBE_OFF
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.MAYBE_OFF
         },
         4: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.ON,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.ON,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.MAYBE_OFF,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.OFF
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.OFF
         },
         5: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.MAYBE_OFF,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.MAYBE_OFF,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.OFF,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.ON
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.ON
         },
         6: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.OFF,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.OFF,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.ON,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.MAYBE_OFF
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.MAYBE_OFF
         },
     }
     SCHEDULE_GROUP_3 = {
@@ -89,33 +89,33 @@ class PowerOFF:
             (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.OFF
         },
         1: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.MAYBE_OFF,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.MAYBE_OFF,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.OFF,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.ON
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.ON
         },
         2: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.OFF,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.OFF,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.ON,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.MAYBE_OFF
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.MAYBE_OFF
         },
         3: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.ON,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.ON,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.MAYBE_OFF,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.OFF
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.OFF
         },
         4: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.MAYBE_OFF,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.MAYBE_OFF,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.OFF,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.ON
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.ON
         },
         5: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.OFF,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.OFF,
             (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.ON,
-            (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.MAYBE_OFF
+            (0, 5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.MAYBE_OFF
         },
         6: {
-            (0, 9, 10, 11, 12, 21, 22, 23): PowerAvailability.ON,
-            (1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.MAYBE_OFF,
+            (9, 10, 11, 12, 21, 22, 23): PowerAvailability.ON,
+            (0, 1, 2, 3, 4, 13, 14, 15, 16): PowerAvailability.MAYBE_OFF,
             (5, 6, 7, 8, 17, 18, 19, 20): PowerAvailability.OFF
         },
     }
