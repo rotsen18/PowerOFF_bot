@@ -18,8 +18,10 @@ class Command:
         schedule = PowerOFF.format_day_schedule(data, day)
         today = datetime.now()
         tomorrow = today + timedelta(days=1)
+        schedule.insert(0, f'Група {group_id}')
         if today.weekday() == day:
-            schedule.insert(0, str(today.date()))
+            schedule.insert(1, str(today.date()))
         elif tomorrow.weekday() == day:
-            schedule.insert(0, str(tomorrow.date()))
+            schedule.insert(1, str(tomorrow.date()))
+        schedule.insert(2, '-' * 15 + '\n')
         return '\n'.join(schedule)
