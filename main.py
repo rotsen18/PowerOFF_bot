@@ -17,15 +17,6 @@ bot = telebot.TeleBot(settings.TOKEN)
 @bot.message_handler(content_types=["text"])
 def main_menu(message):
     if message.text.lower() in ('/menu', '/start'):
-        with db_handle:
-            user = User.get_or_create(
-                id=message.from_user.id,
-                defaults={
-                    'id': message.from_user.id,
-                    'username': message.from_user.username,
-                    'first_name': message.from_user.first_name
-                }
-            )
         bot.send_message(message.chat.id, 'hello:)', reply_markup=Keyboard.main())
     elif message.text.lower() == 'світло сьогодні':
         weekday = datetime.now().weekday()
