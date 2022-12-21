@@ -18,6 +18,8 @@ bot = telebot.TeleBot(settings.TOKEN)
 def main_menu(message):
     if message.text.lower() in ('/menu', '/start'):
         bot.send_message(message.chat.id, 'hello:)', reply_markup=Keyboard.main())
+    elif message.text.lower() == '/which_group':
+        bot.send_message(message.chat.id, 'https://poweroff.loe.lviv.ua/gav_city3')
     elif message.text.lower() == 'світло сьогодні':
         weekday = datetime.now().weekday()
         bot.send_message(message.chat.id, 'Вибери групу:', reply_markup=Keyboard.choose_group(day=weekday))
