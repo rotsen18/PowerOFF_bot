@@ -127,12 +127,12 @@ class PowerOFF:
         day_schedule_list = []
         for hours, status in day_schedule.items():
             day_schedule_list.extend([[time(hour), status.value] for hour in hours])
+        day_schedule_list.sort()
         return day_schedule_list
 
-    @staticmethod
-    def format_day_schedule(schedule: list, day: int) -> list:
+    @classmethod
+    def format_day_schedule(cls, schedule: list, day: int) -> list:
         hours_list = schedule.copy()
-        hours_list.sort()
         new_list = [hours_list[0]]
         for current_item in hours_list[1:]:
             previous_item = new_list[-1]
@@ -153,13 +153,7 @@ class PowerOFF:
         for item in new_list:
             time_value = item[0].strftime('%H:%M')
             status_value = item[1]
-            icons = {
-                PowerOFF.PowerAvailability.ON.value: '🟢',
-                PowerOFF.PowerAvailability.OFF.value: '🔴',
-                PowerOFF.PowerAvailability.MAYBE_OFF.value: '⚪',
-                'ЗАРАЗ': '  ➡️',
-            }
-            icon = icons.get(status_value)
+            icon = cls._get_status_icon(status_value)
             row = f'{icon} {time_value} - {status_value}'
             if status_value == 'ЗАРАЗ':
                 row = f'<b>{row}</b>'
@@ -169,3 +163,34 @@ class PowerOFF:
     @classmethod
     def _get_schedule(cls, group_id: int) -> dict:
         return getattr(cls, f'SCHEDULE_GROUP_{group_id}')
+
+    @classmethod
+    def another_groups_status(cls, current_group_id):
+        result_statuses = {1: None, 2: None, 3: None}
+        result_statuses.pop(current_group_id)
+        now = datetime.now()
+        weekday = now.weekday()
+        for group_id in result_statuses:
+            week_schedule = cls._get_schedule(group_id)
+            day_schedule = week_schedule.get(weekday)
+            for hours, status in day_schedule.items():
+                if now.hour in hours:
+                    result_statuses[group_id] = status
+                    break
+        group_statuses = []
+        for group_id, status in result_statuses.items():
+            icon = cls._get_status_icon(status.value)
+            time_value = now.strftime('%H:%M')
+            row = f'{icon} група: {group_id} {time_value} - {status.value}'
+            group_statuses.append(row)
+        return '\n'.join(group_statuses)
+
+    @classmethod
+    def _get_status_icon(cls, status):
+        icons = {
+            PowerOFF.PowerAvailability.ON.value: '🟢',
+            PowerOFF.PowerAvailability.OFF.value: '🔴',
+            PowerOFF.PowerAvailability.MAYBE_OFF.value: '⚪',
+            'ЗАРАЗ': '  ➡️',
+        }
+        return icons.get(status)

@@ -25,3 +25,8 @@ class Command:
             schedule.insert(1, str(tomorrow.date()))
         schedule.insert(2, '-' * 15 + '\n')
         return '\n'.join(schedule)
+
+    @staticmethod
+    def another_group_statuses(group_id: int):
+        message = PowerOFF.another_groups_status(group_id)
+        return message

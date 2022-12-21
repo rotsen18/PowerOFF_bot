@@ -35,3 +35,12 @@ class Keyboard:
         button = types.InlineKeyboardButton(text='toworrow schedule', callback_data='tomorrow_power_schedule')
         keyboard.add(button)
         return keyboard
+
+    @staticmethod
+    def group_answer(group: int):
+        keyboard = types.InlineKeyboardMarkup()
+        photo = types.InlineKeyboardButton(text='Показати фото', callback_data=f'show_photo group {group}')
+        schedule = types.InlineKeyboardButton(text='Графік інших груп', callback_data=f'another_groups {group}')
+        keyboard.add(photo)
+        keyboard.add(schedule)
+        return keyboard
