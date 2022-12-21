@@ -38,7 +38,7 @@ def callback_inline(call):
         if call.data.startswith('group '):
             _, group, _, day = call.data.split()
             response_text = Command.day_power_off_schedule(int(group), int(day))
-            if day == datetime.now().weekday():
+            if int(day) == datetime.now().weekday():
                 bot.send_message(call.message.chat.id, text=response_text, reply_markup=Keyboard.group_answer(group), parse_mode='HTML')
             else:
                 bot.send_message(call.message.chat.id, text=response_text, reply_markup=Keyboard.send_photo(group))

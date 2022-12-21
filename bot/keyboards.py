@@ -40,7 +40,7 @@ class Keyboard:
     def group_answer(group: int):
         keyboard = types.InlineKeyboardMarkup()
         photo = types.InlineKeyboardButton(text='Показати фото', callback_data=f'show_photo group {group}')
-        schedule = types.InlineKeyboardButton(text='Графік інших груп', callback_data=f'another_groups {group}')
+        schedule = types.InlineKeyboardButton(text='Статус інших груп', callback_data=f'another_groups {group}')
         keyboard.add(photo)
         keyboard.add(schedule)
         return keyboard
