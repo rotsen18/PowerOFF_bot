@@ -43,7 +43,8 @@ class Zakaz:
         delivery_prices = []
         for day in schedule:
             for delivery in day['items']:
-                message = f"[{delivery['date']} {delivery['time_range']}] {delivery['price'] / 100} UAH  -{delivery['available_discount'] / 100} UAH"
+                price = (delivery['price'] - delivery['available_discount']) / 100
+                message = f"[{delivery['date']} {delivery['time_range']}] - {price} UAH"
                 delivery_prices.append(message)
             delivery_prices.append('\n')
         return delivery_prices
