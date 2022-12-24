@@ -18,6 +18,15 @@ bot = telebot.TeleBot(settings.TOKEN)
 
 @bot.message_handler(content_types=["text"])
 def main_menu(message):
+    user_id = message.from_user.id
+    chat_id = message.chat.id
+    user = DB.get_user(user_id)
+    if user is None:
+        first_name = message.from_user.first_name
+        last_name = message.from_user.last_name
+        username = message.from_user.username
+        DB.create_user(_id=user_id, name=first_name, surname=last_name, us_name=username, user_chat_id=chat_id)
+    user = DB.get_user(user_id)
     if message.text.lower() in ('/menu', '/start'):
         bot.send_message(message.chat.id, 'hello:)', reply_markup=Keyboard.main())
     elif message.text.lower() == '/which_group':

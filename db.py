@@ -29,12 +29,11 @@ class MySQLCursor:
 class DB:
 
     @staticmethod
-    def create_user(user_id: int, first_name: str, last_name: str, username: str, chat_id: int):
+    def create_user(_id: int, name: str, surname: str, us_name: str, user_chat_id: int):
         with MySQLCursor(commit=True) as cursor:
-            cursor.execute(
-                'INSERT INTO user_bot (user_id, first_name, last_name, username, chat_id) VALUES (?, ?, ?, ?, ?)',
-                (user_id, first_name, last_name, username, chat_id)
-            )
+            sql_update_query = f"INSERT INTO user_bot (user_id, first_name, last_name, username, chat_id) VALUES (%s, %s, %s, %s, %s)"
+            data = (_id, name, surname, us_name, user_chat_id)
+            cursor.execute(sql_update_query, data)
 
     @staticmethod
     def get_user(user_id: int):
@@ -44,16 +43,7 @@ class DB:
             return user
 
     @staticmethod
-    def get_user_group(user_id: int):
-        with MySQLCursor() as cursor:
-            cursor.execute('SELECT group_id FROM user_bot WHERE user_id = ?', (user_id,))
-            group = cursor.fetchone()
-            if group:
-                return group[0]
-
-    @staticmethod
     def set_user_group(user_id: int, group_id: int):
         with MySQLCursor(commit=True) as cursor:
-            sql_update_query = 'UPDATE user_bot SET group = ? WHERE user_id = ?'
-            data = (group_id, user_id)
-            cursor.execute(sql_update_query, data)
+            sql_update_query = f'UPDATE user_bot SET group = {group_id} WHERE user_id = {user_id}'
+            cursor.execute(sql_update_query)
