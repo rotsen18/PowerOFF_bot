@@ -14,7 +14,7 @@ from bot.keyboards import Keyboard
 
 bot = telebot.TeleBot(settings.TOKEN)
 
-conn = sqlite3.connect('bot.db', check_same_thread=False)
+conn = sqlite3.connect(settings.DB_NAME, check_same_thread=False)
 cursor = conn.cursor()
 
 
