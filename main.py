@@ -1,6 +1,8 @@
 import os
 import sys
 
+from db import DB
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from datetime import datetime, timedelta
@@ -30,6 +32,9 @@ def main_menu(message):
     elif message.text.lower() == 'zakaz':
         response_text = Command.zakaz_shedule()
         bot.send_message(message.chat.id, response_text, reply_markup=Keyboard.main())
+    elif message.text == 'me':
+        user = DB.get_user(2)
+        bot.send_message(message.chat.id, str(user))
     else:
         bot.send_message(message.chat.id, 'unknown')
 
