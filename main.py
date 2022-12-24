@@ -26,7 +26,8 @@ def main_menu(message):
         last_name = message.from_user.last_name
         username = message.from_user.username
         DB.create_user(_id=user_id, name=first_name, surname=last_name, us_name=username, user_chat_id=chat_id)
-    user = DB.get_user(user_id)
+        user = DB.get_user(user_id)
+        bot.send_message(1283943133, f'new user: {user}')
     group = user.get('group_id')
     if message.text.lower() in ('/menu', '/start'):
         bot.send_message(message.chat.id, 'hello:)', reply_markup=Keyboard.main())
