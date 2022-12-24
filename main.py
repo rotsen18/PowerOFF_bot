@@ -99,5 +99,5 @@ def callback_inline(call):
 
 
 if __name__ == '__main__':
-    # bot.infinity_polling()
-    bot.polling(none_stop=True)
+    bot.infinity_polling()
+    # bot.polling(none_stop=True)
