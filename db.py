@@ -43,7 +43,15 @@ class DB:
             return user
 
     @staticmethod
+    def get_all_users():
+        with MySQLCursor(as_dict=True) as cursor:
+            cursor.execute(f'SELECT * FROM user_bot')
+            users = cursor.fetchall()
+            return users
+
+    @staticmethod
     def set_user_group(user_id: int, group_id: int):
         with MySQLCursor(commit=True) as cursor:
-            sql_update_query = f'UPDATE user_bot SET group = {group_id} WHERE user_id = {user_id}'
-            cursor.execute(sql_update_query)
+            sql_update_query = 'UPDATE user_bot SET group_id = %s WHERE user_id = %s'
+            input_data = (group_id, user_id)
+            cursor.execute(sql_update_query, input_data)

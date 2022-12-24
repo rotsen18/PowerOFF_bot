@@ -26,7 +26,10 @@ class Keyboard:
     def send_photo(group: int):
         keyboard = types.InlineKeyboardMarkup()
         button = types.InlineKeyboardButton(text='Показати фото', callback_data=f'show_photo group {group}')
+        change_group = types.InlineKeyboardButton(text='Змінити групу', callback_data=f'change_group {group}')
+
         keyboard.add(button)
+        keyboard.add(change_group)
         return keyboard
 
     @staticmethod
@@ -41,6 +44,8 @@ class Keyboard:
         keyboard = types.InlineKeyboardMarkup()
         photo = types.InlineKeyboardButton(text='Показати фото', callback_data=f'show_photo group {group}')
         schedule = types.InlineKeyboardButton(text='Статус інших груп', callback_data=f'another_groups {group}')
+        change_group = types.InlineKeyboardButton(text='Змінити групу', callback_data=f'change_group {group}')
         keyboard.add(photo)
         keyboard.add(schedule)
+        keyboard.add(change_group)
         return keyboard
