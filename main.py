@@ -45,7 +45,6 @@ def set_user_group(user_id: int, group_id: int):
 @bot.message_handler(content_types=["text"])
 def main_menu(message):
     user_id = message.from_user.id
-    user = get_user(user_id)
     chat_id = message.chat.id
     # if user is None:
     #     first_name = message.from_user.first_name
@@ -67,9 +66,9 @@ def main_menu(message):
     elif message.text.lower() == 'zakaz':
         response_text = Command.zakaz_shedule()
         bot.send_message(message.chat.id, response_text, reply_markup=Keyboard.main())
-    # elif message.text.lower() == 'me':
-    #     me = get_user(user_id=2)
-    #     bot.send_message(message.chat.id, f'your group is {me}')
+    elif message.text.lower() == 'me':
+        me = get_user(user_id=2)
+        bot.send_message(message.chat.id, f'your group is {me}')
     else:
         bot.send_message(message.chat.id, 'unknown')
 
