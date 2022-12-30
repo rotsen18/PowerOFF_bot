@@ -12,19 +12,27 @@ class Command:
         deliveries = Zakaz.format_delivery_schedule(data)
         return '\n'.join(deliveries)
 
-    @staticmethod
-    def day_power_off_schedule(group_id: int, day: int):
+    @classmethod
+    def day_power_off_schedule(cls, group_id: int, day: int):
         data = PowerOFF.day_data(group_id, day)
         schedule = PowerOFF.format_day_schedule(data, day)
-        today = datetime.now()
-        tomorrow = today + timedelta(days=1)
         schedule.insert(0, f'Група {group_id}')
-        if today.weekday() == day:
-            schedule.insert(1, str(today.date()))
-        elif tomorrow.weekday() == day:
-            schedule.insert(1, str(tomorrow.date()))
+        date = cls._get_date_from_weekday(day)
+        formatted_date = date.strftime('%a %d %m %Y')
+        schedule.insert(1, formatted_date)
         schedule.insert(2, '-' * 15 + '\n')
         return '\n'.join(schedule)
+
+    @staticmethod
+    def _get_date_from_weekday(weekday: int):
+        today = datetime.today()
+        day_shift = today.weekday() % 7
+        monday = today - timedelta(days=day_shift)
+        week_dates = {
+            day_num: monday + timedelta(days=day_num)
+            for day_num in range(7)
+        }
+        return week_dates.get(weekday)
 
     @staticmethod
     def another_group_statuses(group_id: int):

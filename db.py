@@ -28,12 +28,13 @@ class MySQLCursor:
 
 class DB:
 
-    @staticmethod
-    def create_user(_id: int, name: str, surname: str, us_name: str, user_chat_id: int):
+    @classmethod
+    def create_user(cls, _id: int, name: str, surname: str, us_name: str, user_chat_id: int):
         with MySQLCursor(commit=True) as cursor:
             sql_update_query = f"INSERT INTO user_bot (user_id, first_name, last_name, username, chat_id) VALUES (%s, %s, %s, %s, %s)"
             data = (_id, name, surname, us_name, user_chat_id)
             cursor.execute(sql_update_query, data)
+        return cls.get_user(_id)
 
     @staticmethod
     def get_user(user_id: int):
@@ -55,3 +56,17 @@ class DB:
             sql_update_query = 'UPDATE user_bot SET group_id = %s WHERE user_id = %s'
             input_data = (group_id, user_id)
             cursor.execute(sql_update_query, input_data)
+
+    @classmethod
+    def get_or_create_user(cls, user_id: int, defaults: dict):
+        user = cls.get_user(user_id)
+        if user is not None:
+            return user, False
+        kwargs = {
+            'first_name': defaults.get('first_name'),
+            'last_name': defaults.get('last_name'),
+            'username': defaults.get('username'),
+            '_id': defaults.get('user_id'),
+            'user_chat_id': defaults.get('chat_id'),
+        }
+        return cls.create_user(**kwargs), True

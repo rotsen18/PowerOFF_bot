@@ -1,6 +1,8 @@
 import os
 import sys
 
+from telebot import apihelper
+
 from db import DB
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
@@ -13,27 +15,43 @@ import settings
 from bot.commands import Command
 from bot.keyboards import Keyboard
 
+
+apihelper.ENABLE_MIDDLEWARE = True
+
 bot = telebot.TeleBot(settings.TOKEN)
+
+
+class Admin:
+    ADMIN_ID = settings.ADMIN_ID
+
+    @classmethod
+    def send_message(cls, message):
+        bot.send_message(cls.ADMIN_ID, message)
+
+
+@bot.middleware_handler(update_types=['message'])
+def modify_message(bot_instance, message):
+    user, created = DB.get_or_create_user(message.from_user.id, message.from_user)
+    message.user = user
+    if created:
+        Admin.send_message(f'new user: {user}')
+
+
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+    bot.send_message(message.chat.id, 'hello:)')
+
+
+@bot.message_handler(commands=['which_group'])
+def send_welcome(message):
+    bot.send_message(message.chat.id, 'you can find your group on website:')
+    bot.send_message(message.chat.id, 'https://poweroff.loe.lviv.ua/gav_city3', disable_web_page_preview=True)
 
 
 @bot.message_handler(content_types=["text"])
 def main_menu(message):
-    user_id = message.from_user.id
-    chat_id = message.chat.id
-    user = DB.get_user(user_id)
-    if user is None:
-        first_name = message.from_user.first_name
-        last_name = message.from_user.last_name
-        username = message.from_user.username
-        DB.create_user(_id=user_id, name=first_name, surname=last_name, us_name=username, user_chat_id=chat_id)
-        user = DB.get_user(user_id)
-        bot.send_message(1283943133, f'new user: {user}')
-    group = user.get('group_id')
-    if message.text.lower() in ('/menu', '/start'):
-        bot.send_message(message.chat.id, 'hello:)', reply_markup=Keyboard.main())
-    elif message.text.lower() == '/which_group':
-        bot.send_message(message.chat.id, 'https://poweroff.loe.lviv.ua/gav_city3')
-    elif message.text.lower() == 'світло сьогодні':
+    group = message.user.get('group_id')
+    if message.text.lower() == 'світло сьогодні':
         weekday = datetime.now().weekday()
         if group is None:
             bot.send_message(message.chat.id, 'Вибери групу:', reply_markup=Keyboard.choose_group(day=weekday))
@@ -41,6 +59,7 @@ def main_menu(message):
             response_text = Command.day_power_off_schedule(group, weekday)
             bot.send_message(message.chat.id, text=response_text, reply_markup=Keyboard.group_answer(group),
                              parse_mode='HTML')
+        return
     elif message.text.lower() == 'світло завтра':
         tomorrow = datetime.now() + timedelta(days=1)
         weekday = tomorrow.weekday()
@@ -49,15 +68,22 @@ def main_menu(message):
         else:
             response_text = Command.day_power_off_schedule(group, weekday)
             bot.send_message(message.chat.id, text=response_text, reply_markup=Keyboard.send_photo(group))
+        return
+    for weekday, day_name in enumerate(['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд']):
+        if message.text == day_name:
+            if group is None:
+                bot.send_message(message.chat.id, 'Вибери групу:', reply_markup=Keyboard.choose_group(day=weekday))
+            else:
+                response_text = Command.day_power_off_schedule(group, weekday)
+                bot.send_message(message.chat.id, text=response_text, reply_markup=Keyboard.send_photo(group))
+            return
 
-
-    elif message.text.lower() == 'zakaz':
+    if message.text.lower() == 'zakaz':
         response_text = Command.zakaz_shedule()
         bot.send_message(message.chat.id, response_text, reply_markup=Keyboard.main())
-    elif message.text == 'me':
-        user = DB.get_user(user_id)
-        bot.send_message(message.chat.id, str(user))
-    elif message.text == 'users':
+    elif message.text.lower() == 'me':
+        bot.send_message(message.chat.id, str(message.user))
+    elif message.text.lower() == 'users':
         rows = DB.get_all_users()
         bot.send_message(message.chat.id, f'total: {len(rows)}')
         for i, row in enumerate(rows):
@@ -70,7 +96,6 @@ def main_menu(message):
 def callback_inline(call):
     if call.message:  # message from chat with bot
         user_id = call.from_user.id
-        user = DB.get_user(user_id)
         if call.data.startswith('group '):
             _, group, _, day = call.data.split()
             DB.set_user_group(user_id, int(group))
@@ -92,7 +117,8 @@ def callback_inline(call):
         elif call.data.startswith('change_group'):
             _, group_id = call.data.split()
             weekday = datetime.now().weekday()
-            bot.send_message(call.message.chat.id, 'Вибери нову групу:', reply_markup=Keyboard.choose_group(day=weekday))
+            bot.send_message(call.message.chat.id, 'Вибери нову групу:',
+                             reply_markup=Keyboard.choose_group(day=weekday))
     elif call.inline_message_id:  # message from inline mode
         if call.data == "test":
             bot.edit_message_text(inline_message_id=call.inline_message_id, text="another")

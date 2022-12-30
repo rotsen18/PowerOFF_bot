@@ -5,11 +5,19 @@ from datetime import datetime
 class Keyboard:
     @staticmethod
     def main():
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        zakaz = types.KeyboardButton('Zakaz')
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=8)
         today = types.KeyboardButton('Світло сьогодні')
         tomorrow = types.KeyboardButton('Світло завтра')
-        markup.row(zakaz, today, tomorrow)
+        markup.add(today, tomorrow)
+        markup.add(
+            types.KeyboardButton('Пн'),
+            types.KeyboardButton('Вт'),
+            types.KeyboardButton('Ср'),
+            types.KeyboardButton('Чт'),
+            types.KeyboardButton('Пт'),
+            types.KeyboardButton('Сб'),
+            types.KeyboardButton('Нд')
+        )
         return markup
 
     @staticmethod
