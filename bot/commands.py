@@ -18,7 +18,7 @@ class Command:
         schedule = PowerOFF.format_day_schedule(data, day)
         schedule.insert(0, f'Група {group_id}')
         date = cls._get_date_from_weekday(day)
-        formatted_date = date.strftime('%a %d %m %Y')
+        formatted_date = date.strftime('%d %B %Y')
         schedule.insert(1, formatted_date)
         schedule.insert(2, '-' * 15 + '\n')
         return '\n'.join(schedule)
