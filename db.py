@@ -70,3 +70,10 @@ class DB:
             'user_chat_id': defaults.get('chat_id'),
         }
         return cls.create_user(**kwargs), True
+
+    @classmethod
+    def increase_user_message(cls, user_id: int):
+        with MySQLCursor(commit=True) as cursor:
+            sql_update_query = 'UPDATE user_bot SET message_count = message_count + 1 WHERE user_id = %s'
+            input_data = (user_id,)
+            cursor.execute(sql_update_query, input_data)

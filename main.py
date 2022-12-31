@@ -35,6 +35,7 @@ def modify_message(bot_instance, message):
     message.user = user
     if created:
         Admin.send_message(f'new user: {user}')
+    DB.increase_user_message(user_id=user.get('user_id'))
 
 
 @bot.message_handler(commands=['start', 'help'])
