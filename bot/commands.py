@@ -26,12 +26,11 @@ class Command:
     @staticmethod
     def _get_date_from_weekday(weekday: int):
         today = datetime.today()
-        day_shift = today.weekday() % 7
-        monday = today - timedelta(days=day_shift)
-        week_dates = {
-            day_num: monday + timedelta(days=day_num)
-            for day_num in range(7)
-        }
+        week_dates = {}
+        for day_shift in range(1, 8):
+            actual = today + timedelta(days=day_shift)
+            actual_weekday = actual.weekday()
+            week_dates[actual_weekday] = actual
         return week_dates.get(weekday)
 
     @staticmethod

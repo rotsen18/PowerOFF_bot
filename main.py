@@ -58,8 +58,12 @@ def main_menu(message):
             bot.send_message(message.chat.id, 'Вибери групу:', reply_markup=Keyboard.choose_group(day=weekday))
         else:
             response_text = Command.day_power_off_schedule(group, weekday)
-            bot.send_message(message.chat.id, text=response_text, reply_markup=Keyboard.group_answer(group),
-                             parse_mode='HTML')
+            bot.send_message(
+                message.chat.id,
+                text=response_text,
+                reply_markup=Keyboard.group_answer(group),
+                parse_mode='HTML'
+            )
         return
     elif message.text.lower() == 'світло завтра':
         tomorrow = datetime.now() + timedelta(days=1)
@@ -76,7 +80,12 @@ def main_menu(message):
                 bot.send_message(message.chat.id, 'Вибери групу:', reply_markup=Keyboard.choose_group(day=weekday))
             else:
                 response_text = Command.day_power_off_schedule(group, weekday)
-                bot.send_message(message.chat.id, text=response_text, reply_markup=Keyboard.send_photo(group))
+                bot.send_message(
+                    message.chat.id,
+                    text=response_text,
+                    reply_markup=Keyboard.send_photo(group),
+                    parse_mode='HTML'
+                )
             return
 
     if message.text.lower() == 'zakaz':
