@@ -31,7 +31,7 @@ class Keyboard:
             types.KeyboardButton('zakaz'),
             types.KeyboardButton('me'),
             types.KeyboardButton('users'),
-            types.KeyboardButton('update'),
+            # types.KeyboardButton('update'),
         )
 
     @staticmethod
