@@ -102,9 +102,7 @@ def main_menu(message):
         users = DB.get_all_users()
         for user in users:
             response_text = Command.update()
-            if user.get('user_id') == settings.ADMIN_ID:
-                bot.send_message(user.get('chat_id'), response_text, reply_markup=Keyboard.update())
-            print(f"user.get('username') We have new release, check update")
+            bot.send_message(user.get('chat_id'), response_text, reply_markup=Keyboard.update())
     else:
         bot.send_message(message.chat.id, 'unknown')
 
