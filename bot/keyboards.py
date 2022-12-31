@@ -1,10 +1,12 @@
 from telebot import types
 from datetime import datetime
 
+import settings
+
 
 class Keyboard:
-    @staticmethod
-    def main():
+    @classmethod
+    def main(cls, user_id: int):
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=8)
         today = types.KeyboardButton('Світло сьогодні')
         tomorrow = types.KeyboardButton('Світло завтра')
@@ -18,6 +20,19 @@ class Keyboard:
             types.KeyboardButton('Сб'),
             types.KeyboardButton('Нд')
         )
+        if user_id == settings.ADMIN_ID:
+            markup.add(
+                types.KeyboardButton('zakaz'),
+                types.KeyboardButton('me'),
+                types.KeyboardButton('users'),
+                types.KeyboardButton('update'),
+            )
+        return markup
+
+    @classmethod
+    def admin_buttons(cls):
+        markup = cls.main()
+        markup.add(types.KeyboardButton('settings'))
         return markup
 
     @staticmethod
@@ -56,4 +71,11 @@ class Keyboard:
         keyboard.add(photo)
         keyboard.add(schedule)
         keyboard.add(change_group)
+        return keyboard
+
+    @staticmethod
+    def update():
+        keyboard = types.InlineKeyboardMarkup()
+        update_button = types.InlineKeyboardButton(text='Show me', callback_data='show_update')
+        keyboard.add(update_button)
         return keyboard

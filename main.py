@@ -40,7 +40,7 @@ def modify_message(bot_instance, message):
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-    bot.send_message(message.chat.id, '👋', reply_markup=Keyboard.main())
+    bot.send_message(message.chat.id, '👋', reply_markup=Keyboard.main(message.user.get('user_id')))
 
 
 @bot.message_handler(commands=['which_group'])
@@ -51,6 +51,7 @@ def send_loe_website(message):
 
 @bot.message_handler(content_types=["text"])
 def main_menu(message):
+    user_id = message.user.get('user_id')
     group = message.user.get('group_id')
     if message.text.lower() == 'світло сьогодні':
         weekday = datetime.now().weekday()
@@ -90,7 +91,7 @@ def main_menu(message):
 
     if message.text.lower() == 'zakaz':
         response_text = Command.zakaz_shedule()
-        bot.send_message(message.chat.id, response_text, reply_markup=Keyboard.main())
+        bot.send_message(message.chat.id, response_text, reply_markup=Keyboard.main(user_id))
     elif message.text.lower() == 'me':
         bot.send_message(message.chat.id, str(message.user))
     elif message.text.lower() == 'users':
@@ -98,6 +99,13 @@ def main_menu(message):
         bot.send_message(message.chat.id, f'total: {len(rows)}')
         for i, row in enumerate(rows):
             bot.send_message(message.chat.id, f'{i}. {row}')
+    elif message.text.lower() == 'update':
+        users = DB.get_all_users()
+        for user in users:
+            if user.get('user_id') == settings.ADMIN_ID:
+                bot.send_message(user.get('chat_id'), 'We have new release, check update',
+                                 reply_markup=Keyboard.update())
+            print(f"user.get('username') We have new release, check update")
     else:
         bot.send_message(message.chat.id, 'unknown')
 
@@ -119,16 +127,18 @@ def callback_inline(call):
         elif call.data.startswith('show_photo'):
             _, _, group_num = call.data.split()
             img = f'https://poweroff.loe.lviv.ua/static/img/{int(group_num)}group.png'
-            bot.send_photo(call.message.chat.id, img, reply_markup=Keyboard.main())
+            bot.send_photo(call.message.chat.id, img, reply_markup=Keyboard.main(user_id))
         elif call.data.startswith('another_groups'):
             _, group_id = call.data.split()
             response_text = Command.another_group_statuses(int(group_id))
-            bot.send_message(call.message.chat.id, response_text, reply_markup=Keyboard.main())
+            bot.send_message(call.message.chat.id, response_text, reply_markup=Keyboard.main(user_id))
         elif call.data.startswith('change_group'):
             _, group_id = call.data.split()
             weekday = datetime.now().weekday()
             bot.send_message(call.message.chat.id, 'Вибери нову групу:',
                              reply_markup=Keyboard.choose_group(day=weekday))
+        elif call.data == 'show_update':
+            bot.send_message(call.message.chat.id, '🥳', reply_markup=Keyboard.main(user_id))
     elif call.inline_message_id:  # message from inline mode
         if call.data == "test":
             bot.edit_message_text(inline_message_id=call.inline_message_id, text="another")
