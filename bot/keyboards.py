@@ -21,19 +21,18 @@ class Keyboard:
             types.KeyboardButton('Нд')
         )
         if user_id == settings.ADMIN_ID:
-            markup.add(
-                types.KeyboardButton('zakaz'),
-                types.KeyboardButton('me'),
-                types.KeyboardButton('users'),
-                types.KeyboardButton('update'),
-            )
+            admin_buttons = cls.admin_buttons()
+            markup.add(*admin_buttons)
         return markup
 
-    @classmethod
-    def admin_buttons(cls):
-        markup = cls.main()
-        markup.add(types.KeyboardButton('settings'))
-        return markup
+    @staticmethod
+    def admin_buttons():
+        return (
+            types.KeyboardButton('zakaz'),
+            types.KeyboardButton('me'),
+            types.KeyboardButton('users'),
+            types.KeyboardButton('update'),
+        )
 
     @staticmethod
     def choose_group(day: int = None):

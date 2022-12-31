@@ -15,7 +15,6 @@ import settings
 from bot.commands import Command
 from bot.keyboards import Keyboard
 
-
 apihelper.ENABLE_MIDDLEWARE = True
 
 bot = telebot.TeleBot(settings.TOKEN)
