@@ -39,11 +39,11 @@ def modify_message(bot_instance, message):
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-    bot.send_message(message.chat.id, 'hello:)')
+    bot.send_message(message.chat.id, '👋', reply_markup=Keyboard.main())
 
 
 @bot.message_handler(commands=['which_group'])
-def send_welcome(message):
+def send_loe_website(message):
     bot.send_message(message.chat.id, 'you can find your group on website:')
     bot.send_message(message.chat.id, 'https://poweroff.loe.lviv.ua/gav_city3', disable_web_page_preview=True)
 
