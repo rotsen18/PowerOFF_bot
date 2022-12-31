@@ -37,3 +37,10 @@ class Command:
     def another_group_statuses(group_id: int):
         message = PowerOFF.another_groups_status(group_id)
         return message
+
+    @staticmethod
+    def update():
+        with open('ver.txt') as f:
+            version = f.read()
+            version = str(version).strip()
+        return f'We have new release {version}, check update'
