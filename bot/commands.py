@@ -43,4 +43,4 @@ class Command:
         with open('ver.txt') as f:
             version = f.read()
             version = str(version).strip()
-        return f'We have new release {version}, check update'
+        return f'У нас є новий випуск {version}, глянь оновлення'

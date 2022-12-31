@@ -75,6 +75,6 @@ class Keyboard:
     @staticmethod
     def update():
         keyboard = types.InlineKeyboardMarkup()
-        update_button = types.InlineKeyboardButton(text='Show me', callback_data='show_update')
+        update_button = types.InlineKeyboardButton(text='Показати', callback_data='show_update')
         keyboard.add(update_button)
         return keyboard
