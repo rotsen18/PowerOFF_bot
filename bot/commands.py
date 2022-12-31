@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+from version import CURRENT_VERSION
 from services.zakaz import Zakaz
 from services.power import PowerOFF
 import settings
@@ -40,7 +41,4 @@ class Command:
 
     @staticmethod
     def update():
-        with open('ver.txt') as f:
-            version = f.read()
-            version = str(version).strip()
-        return f'У нас є новий випуск {version}, глянь оновлення'
+        return f'У нас є новий випуск {CURRENT_VERSION}, глянь оновлення'
