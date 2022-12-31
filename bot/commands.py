@@ -27,7 +27,7 @@ class Command:
     def _get_date_from_weekday(weekday: int):
         today = datetime.today()
         week_dates = {}
-        for day_shift in range(1, 8):
+        for day_shift in range(7):
             actual = today + timedelta(days=day_shift)
             actual_weekday = actual.weekday()
             week_dates[actual_weekday] = actual
