@@ -1,4 +1,5 @@
 import mysql.connector
+from telebot.types import User
 
 import settings
 
@@ -58,16 +59,16 @@ class DB:
             cursor.execute(sql_update_query, input_data)
 
     @classmethod
-    def get_or_create_user(cls, user_id: int, defaults: dict):
+    def get_or_create_user(cls, user_id: int, defaults: User):
         user = cls.get_user(user_id)
         if user:
             return user, False
         kwargs = {
-            'first_name': defaults.get('first_name'),
-            'last_name': defaults.get('last_name'),
-            'username': defaults.get('username'),
-            '_id': defaults.get('user_id'),
-            'user_chat_id': defaults.get('chat_id'),
+            'first_name': defaults.first_name,
+            'last_name': defaults.last_name,
+            'username': defaults.username,
+            '_id': defaults.id,
+            'user_chat_id': defaults.id,
         }
         return cls.create_user(**kwargs), True
 
