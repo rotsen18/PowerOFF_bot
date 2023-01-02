@@ -60,7 +60,7 @@ class DB:
     @classmethod
     def get_or_create_user(cls, user_id: int, defaults: dict):
         user = cls.get_user(user_id)
-        if user is not None:
+        if user:
             return user, False
         kwargs = {
             'first_name': defaults.get('first_name'),
