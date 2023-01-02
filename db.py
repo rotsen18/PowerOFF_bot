@@ -64,9 +64,9 @@ class DB:
         if user:
             return user, False
         kwargs = {
-            'first_name': defaults.first_name,
-            'last_name': defaults.last_name,
-            'username': defaults.username,
+            'name': defaults.first_name,
+            'surname': defaults.last_name,
+            'us_name': defaults.username,
             '_id': defaults.id,
             'user_chat_id': defaults.id,
         }
